@@ -3,6 +3,7 @@ const Review = require('../models/Review');
 
 const createBook=async(req,res)=>{
     try {
+        //getting user id
         req.body.createdBy = req.user.id;
         const book = await Book.create(req.body);
         res.status(201).json(book);
@@ -16,7 +17,8 @@ const createBook=async(req,res)=>{
 const getBooks=async(req,res)=>{
 
     try {
-        const { page = 1, limit = 10, author, genre } = req.query;
+        //page and limit set to 1 and 5 by default
+        const { page = 1, limit = 5, author, genre } = req.query;
         const filter = {};
         if (author) filter.author = author;
         if (genre)  filter.genre  = genre;
